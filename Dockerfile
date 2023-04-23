@@ -5,10 +5,10 @@ FROM python:3.10.9-slim-buster
 WORKDIR /app
 
 # Copia o código para o container
-COPY . .
+COPY . /app
 
 # Instala as dependências
-RUN pip3.10 install Flask
+RUN pip install -r requirements.txt
 
 # Expõe a porta 5000
 EXPOSE 5000
