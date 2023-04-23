@@ -1,5 +1,5 @@
 # Imagem base
-FROM python:3.10.10-slim-buster
+FROM python:3.9-slim-buster
 
 # Define o diretório de trabalho
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Instala as dependências
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 # Expõe a porta 5000
 EXPOSE 5000
