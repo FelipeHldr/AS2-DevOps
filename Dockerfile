@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Instala as dependências
-RUN pip3.10 install -r requirements.txt
+RUN pip3.10 install Flask
 
 # Expõe a porta 5000
 EXPOSE 5000
