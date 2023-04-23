@@ -1,5 +1,5 @@
 # Imagem base
-FROM python
+FROM python:3.10.10-slim-buster
 
 # Define o diretório de trabalho
 WORKDIR /app
