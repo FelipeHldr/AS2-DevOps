@@ -11,7 +11,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if username == 'admin' and password == 'password':
+        if username == 'admin' and password == 'admin':
             return redirect(url_for('home'))
         else:
             return render_template('login.html', error='Invalid username or password.')
