@@ -1,10 +1,9 @@
 name: CI
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - master
 
   workflow_dispatch:
 
@@ -14,15 +13,37 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: python3 -V
+      - name: Build
+        run: echo "Build ok"
 
   test-job:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - run: python3 app.py
+      - uses: AppThreat/sast-scan-action@master
+        with:
+          type: "python"
 
   deploy-job:
+    needs: test-job
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: echo "Finalizado!"
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: usuariodocker/repositorio:tag
+
+      - name: Deploy
+        run: echo "Deploy ok"
